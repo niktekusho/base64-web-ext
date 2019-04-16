@@ -1,0 +1,88 @@
+.base64-popup {
+    /* right top blur margin color */
+    /* box-shadow: 0px 0px 8px 0px #5588a3; */
+    /* 20 characters wide */
+    width: 20rem;
+    /* Round the corners a bit */
+    border-radius: 8px;
+    /* The whole popup should stay at the top-right of the browser */
+    position: fixed;
+    top: 16px;
+    right: 16px;
+}
+
+.base64-popup-title-container {
+    /* The title container contains the popup title and the close button */
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    /*
+        In the flex container space-between will put as much space as possible between the elements.
+        Since the title container only has the title and the close button,
+        this property will align the second element (the button in this case) to the right.
+    */
+    justify-content: space-between;
+
+    height: 100%;
+}
+
+.base64-popup-close {
+    /* Use a relatively big font size and change the cursor to pointer (more accessible) */
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.base64-popup-title {
+    /* For the popup title use a relatively big font size */
+    font-size: 2rem;
+}
+
+.base64-popup-content {
+    margin: 0 auto;
+    padding: 8px;
+    /* The popup content needs to be at least 2 rows of text high */
+    min-height: 2rem;
+    height: 100%;
+    /*
+        Since we could be displaying base64 encoded content, 
+        we need to tell the browser to break words even if they don't have break points (spaces and such)
+    */
+    overflow-wrap: break-word;
+}
+
+.base64-popup-title-container {
+    background-color: #00334e;
+    color: #e8e8e8;
+}
+
+.base64-popup-toolbar {
+    /* By default the toolbar should not be visible */
+    display: none;
+}
+
+.base64-popup-content-container {
+    background-color: #e8e8e8;
+}
+
+.base64-popup-content-container:hover > .base64-popup-toolbar {
+    /* Enable toolbar visibility on hover */
+    display: inline-flex;
+    /* background-color: #145374; */
+    position: relative;
+    /* relative positioning... almost magic numbers */
+    top: -1rem;
+    left: 75%;
+}
+
+.base64-popup-btn {
+    /*background-color: #4CAF50; /* Green */
+    border: none;
+    border-radius: 8px;
+    /*color: white; */
+    padding: 8px 16px;
+    text-align: center;
+    display: inline-block;
+    background-color: #145374;
+    color: #e8e8e8;
+    cursor: pointer;
+}

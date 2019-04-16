@@ -1,0 +1,18 @@
+{
+    "name": "base64-web-ext",
+    "version": "0.0.0",
+    "description": "A web extension to decode base64 strings",
+    "private": true,
+    "scripts": {
+        "lint": "web-ext lint --warnings-as-errors",
+        "wrun": "web-ext run --browser-console --verbose",
+        "test": "yarpm lint && yarpm wrun"
+    },
+    "author": "Nicola Dal Maso <nicola.dalmaso@outlook.com> (https://github.com/niktekusho)",
+    "license": "MIT",
+    "devDependencies": {
+        "web-ext": "^3.0.0",
+        "webextension-polyfill": "^0.4.0",
+        "yarpm": "^0.2.1"
+    }
+}

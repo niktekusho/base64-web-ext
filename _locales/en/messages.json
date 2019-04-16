@@ -1,0 +1,14 @@
+{
+    "extensionDescription": {
+        "message": "Decode and decode selected text on the page",
+        "description": "Description of the extension."
+    },
+    "decodeMenu": {
+        "message": "Decode a base64 string",
+        "description": "Description of the extension."
+    },
+    "encodeMenu": {
+        "message": "Encode a string to base64",
+        "description": "Description of the extension."
+    }
+}

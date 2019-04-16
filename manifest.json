@@ -1,0 +1,38 @@
+{
+    "manifest_version": 2,
+    "name": "base64-web-ext",
+    "version": "0.0",
+    "description": "__MSG_extensionDescription__",
+    "default_locale": "en",
+    "developer": {
+        "name": "niktekusho",
+        "url": "https://github.com/niktekusho"
+    },
+    // "icons": {
+    //     "48": "icons/48px.png"
+    // },
+    "permissions": [
+        "activeTab",
+        "contextMenus"
+    ],
+    "background": {
+        "scripts": [
+            "browser-polyfill.js",
+            "background.js"
+        ]
+    },
+    "commands": {
+        "decode": {
+            "suggested_key": {
+                "default": "Shift+Alt+Q"
+            },
+            "description": "Decode a base64 string"
+        },
+        "encode": {
+            "suggested_key": {
+                "default": "Shift+Alt+T"
+            },
+            "description": "Encode a string to base64"
+        }
+    }
+}
