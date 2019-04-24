@@ -4,6 +4,7 @@
     "description": "A web extension to decode base64 strings",
     "private": true,
     "scripts": {
+        "build": "web-ext build --artifacts-dir=build --ignore-files=.* yarn.lock package.json --overwrite-dest",
         "lint": "web-ext lint --warnings-as-errors",
         "wrun": "web-ext run --browser-console --verbose",
         "test": "yarpm lint && yarpm wrun"
