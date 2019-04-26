@@ -3,10 +3,9 @@
 browser.runtime.onMessage.addListener(eventHandler);
 
 function eventHandler(msg) {
-	const selection = document.getSelection();
+	// const selection = document.getSelection();
 	// console.log(msg);
-	const title = msg.title;
-	const translation = msg.translation;
+	const {title, content} = msg;
 	// console.log(selection, translation);
 	// if (selection.anchorNode) {
 	// 	console.log(selection.anchorNode);
@@ -26,11 +25,11 @@ function eventHandler(msg) {
 	popupTitle.textContent = title;
 
 	const popupContent = document.querySelector(`.${containerClass}-content`);
-	popupContent.textContent = translation;
+	popupContent.textContent = content;
 
 	const copyBtn =  document.querySelector(`.${containerClass}-copy-btn`);
 	copyBtn.addEventListener('click', () => {
-		copyToClipboard(translation);
+		copyToClipboard(content);
 	});
 }
 

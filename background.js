@@ -23,6 +23,9 @@ browser.contextMenus.create({
 
 const extensionLogFormat = `[${browser.runtime.getManifest().name}] >`;
 
+/**
+ * @returns {Promise<Tab>} Active tab in the current window
+ */
 async function getActiveTab() {
 	// Get the current tab
 	const activeTab = await browser.tabs.query({
@@ -33,24 +36,52 @@ async function getActiveTab() {
 	return activeTab[0];
 }
 
+/**
+ * Factory for message objects
+ */
 class Message {
-	constructor(type, title, translation) {
+	/**
+	 *
+	 * @param {string} type Type of the message
+	 * @param {string} title Title of the message (most likely shown to the user)
+	 * @param {string} content Content of the message (could be shown to the user)
+	 */
+	constructor(type, title, content) {
 		this.type = type;
 		this.title = title;
-		this.translation = translation;
+		this.content = content;
 	}
 }
 
+/**
+ * Factory for error message objects
+ */
+class ErrorMessage extends Message {
+	/**
+	 *
+	 * @param {string} message Content of the message
+	 */
+	constructor(message) {
+		super('error', 'Error', message);
+	}
+}
+
+/**
+ * Try to decode the specified base64-encoded string.
+ *
+ * @param {string} src base64-encoded string
+ * @returns {Message|ErrorMessage} message object
+ */
 function decode(src) {
 	if (src == null) {
-		return;
+		return new ErrorMessage('No content to decode!');
 	}
 
 	const transformedSrc = src.trim();
 	console.log(`${extensionLogFormat} Transformed text is: ${transformedSrc}`);
 
 	if (src.length === 0) {
-		return;
+		return new ErrorMessage('No content to decode!');
 	}
 
 	try {
@@ -59,19 +90,26 @@ function decode(src) {
 		return new Message('decode', 'Decoded', decoded);
 	} catch (error) {
 		console.error(`${extensionLogFormat} ${error}`);
+		return new ErrorMessage('Could not decode the selected text. Most likely the selected text is not a valid base64-encoded string.');
 	}
 }
 
+/**
+ * Try to encode the specified string to base64
+ *
+ * @param {string} src string to encode
+ * @returns {Message|ErrorMessage} message object
+ */
 function encode(src) {
 	if (src == null) {
-		return;
+		return new ErrorMessage('No content to encode!');
 	}
 
 	const transformedSrc = src.trim();
 	console.log(`${extensionLogFormat} Transformed text is: ${transformedSrc}`);
 
 	if (src.length === 0) {
-		return;
+		return new ErrorMessage('No content to encode!');
 	}
 
 	try {
@@ -80,9 +118,14 @@ function encode(src) {
 		return new Message('encode', 'Encoded', encoded);
 	} catch (error) {
 		console.error(`${extensionLogFormat} ${error}`);
+		// TODO: fact check!
+		return new ErrorMessage('Could not encode the selected text. Most likely the selected text contains special characters that can not be encoded in base64.');
 	}
 }
 
+/**
+ * Cache tabs in which the user uses the extension
+ */
 const tabsRegistry = {};
 
 browser.contextMenus.onClicked.addListener(async (info, tab) => {
