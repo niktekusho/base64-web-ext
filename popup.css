@@ -3,12 +3,15 @@
     /* box-shadow: 0px 0px 8px 0px #5588a3; */
     /* 20 characters wide */
     width: 20rem;
-    /* Round the corners a bit */
-    border-radius: 8px;
+    border: none;
+    /* Round the corners a bit top-left top-right bottom-right bottom-left */
+    border-radius: 25px 0px 25px 25px;
     /* The whole popup should stay at the top-right of the browser */
     position: fixed;
     top: 16px;
     right: 16px;
+    /* This is a workaround for certain sites */
+    z-index: 100000;
 }
 
 .base64-popup-title-container {
@@ -17,12 +20,13 @@
     flex-direction: row;
     padding: 8px;
     /*
-        In the flex container space-between will put as much space as possible between the elements.
-        Since the title container only has the title and the close button,
-        this property will align the second element (the button in this case) to the right.
+    In the flex container space-between will put as much space as possible between the elements.
+    Since the title container only has the title and the close button,
+    this property will align the second element (the button in this case) to the right.
     */
     justify-content: space-between;
 
+    /* Take all the space the popup gets (20rems) */
     height: 100%;
 }
 
@@ -64,7 +68,7 @@
     background-color: #e8e8e8;
 }
 
-.base64-popup-content-container:hover > .base64-popup-toolbar {
+.base64-popup-content-container:hover>.base64-popup-toolbar {
     /* Enable toolbar visibility on hover */
     display: inline-flex;
     /* background-color: #145374; */
@@ -75,14 +79,26 @@
 }
 
 .base64-popup-btn {
-    /*background-color: #4CAF50; /* Green */
     border: none;
     border-radius: 8px;
-    /*color: white; */
     padding: 8px 16px;
     text-align: center;
     display: inline-block;
     background-color: #145374;
     color: #e8e8e8;
     cursor: pointer;
+}
+
+.base64-popup-btn:active {
+    animation: shadow-pulse 2s 1;
+}
+
+@keyframes shadow-pulse {
+    0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
+    }
+
+    100% {
+        box-shadow: 0 0 0 16px rgba(0, 0, 0, 0);
+    }
 }
